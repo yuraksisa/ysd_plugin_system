@@ -1,0 +1,4 @@
+system_admin_menu:
+  system_menu: Sistema
+  logger: Trazas
+  business_event: Eventos negocio
