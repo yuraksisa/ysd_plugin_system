@@ -9,5 +9,6 @@ Gem::Specification.new do |s|
   s.summary = "System module integration"
   
   s.add_runtime_dependency "ysd_mw_system"
+  s.add_runtime_dependency "ysd_md_configuration"
   
 end

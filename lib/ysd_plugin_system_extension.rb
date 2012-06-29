@@ -7,6 +7,21 @@ module Huasi
 
   class SystemExtension < Plugins::ViewListener
 
+    # ========= Installation =================
+
+    # 
+    # Install the plugin
+    #
+    def install(context={})
+            
+        SystemConfiguration::Variable.first_or_create({:name => 'logger_level'}, 
+                                                      {:value => 3, :description => 'logger level', :module => :system}) 
+                                                      
+        SystemConfiguration::Variable.first_or_create({:name => 'logger_max_size'}, 
+                                                      { :value => 2000, :description => 'logger max size (#records)', :module => :system})
+                                                             
+    end
+
     # --------- Menus --------------------
     
     #
@@ -34,7 +49,7 @@ module Huasi
                                   :module => :system,
                                   :weight => 1}
                     },
-                    {:path => '/system/logger',              
+                    {:path => '/system/business-events',              
                      :options => {:title => app.t.system_admin_menu.business_event,
                                   :link_route => "/business-events",
                                   :description => 'Manages business events',
@@ -60,6 +75,12 @@ module Huasi
                  :description => 'Reads the log messages',
                  :fit => 1,
                  :module => :system },
+                {:path => '/logger-config',
+                 :regular_expression => /^\/logger-config/, 
+                 :title => 'Logger configuration', 
+                 :description => 'Configure the logger',
+                 :fit => 1,
+                 :module => :system },                 
                 {:path => '/business-events',
                  :regular_expression => /^\/business-events/,                  
                  :title => 'Business events',
