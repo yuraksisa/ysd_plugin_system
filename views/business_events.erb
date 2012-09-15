@@ -1,0 +1,154 @@
+<%= include('entity-management') %>
+
+<!-- Renders the elements container -->
+<script type="text/tmpl" id="elements_container_template">
+
+  <div class="elements_definition">
+    <p>Esta página muestra los <em>eventos de negocio</em>. Representan sucesos significativos del sistema desde el punto de vista de la operativa que lleva a cabo.</p>
+  </div>
+
+  <table id="elements_table" class="table">
+     <thead class="table-header">
+       <tr>
+         <th class="table-header-title tht-be" scope="col" style="width:25%">Date</th>
+         <th class="table-header-title tht-be" scope="col" style="width:20%">Event</th>
+         <th class="table-header-title tht-be" scope="col" style="width:45%">Data</th>
+         <th class="table-header-title tht-be" scope="col" style="width:10%">Status</th>
+       </tr>
+     </thead>
+     <tbody id="elements_tbody" class="table-tbody">             
+     </tbody>
+  </table>
+
+</script>
+
+<!-- Renders one element in the elements list view -->
+        
+<script type="text/tmpl" id="elements_list_template">
+
+    <tr class="table-row element-navigation-detail" rel="<%%= index %>" id="element_row_<%%=index%>">
+      <td class="table-cell tc-be"><%%= self.model.entityHooks[0].formatDateTime(entity.date) %></td>
+      <td class="table-cell tc-be"><%%= entity.event %></td>
+      <td class="table-cell tc-be"><%%= entity.data %></td>
+      <td class="table-cell tc-be"><%%= self.model.entityHooks[0].formatStatus(entity) %></td>
+    </tr>
+
+</script>
+
+<!-- Renders one element in the element view (full detailed) -->
+
+<script type="text/tmpl" id="element_template">
+
+     <div class="element_template" style="overflow:hidden">
+       <div class="entity-field"><span class="entity-fieldlabel">Date</span> <span class="entity-fieldvalue"><%%= entity.date %></span> </div>
+     </div>
+     <div class="element_template" style="overflow:hidden">
+       <div class="entity-field"><span class="entity-fieldlabel">Event</span> <span class="entity-fieldvalue"><%%= entity.event %></span> </div>
+     </div>
+     <div class="element_template" style="overflow:hidden">
+       <div class="entity-field"><span class="entity-fieldlabel">Data</span> <span class="entity-fieldvalue"><%%= entity.data %></span> </div>
+     </div>
+
+     <div>
+       <table id="business_event_process_table" class="table">
+          <thead class="table-header">
+            <tr>
+              <th class="table-header-title tht-bep" scope="col" style="width:20%">Command</th>
+              <th class="table-header-title tht-bep" scope="col" style="width:10%">Status</th>
+              <th class="table-header-title tht-bep" scope="col" style="width:20%">Last update</th>
+              <th class="table-header-title tht-bep" scope="col" style="width:50%">Error</th>
+            </tr>
+          </thead>
+          <tbody id="business_event_process_tbody" class="table-tbody">             
+          </tbody>
+       </table>
+     </div>
+     
+</script>
+
+<!-- Renders the form to edit an element -->
+
+<script type="text/tmpl" id="element_template_form">
+
+</script>
+
+<!-- Renders a business event process -->
+
+<script type="text/tmpl" id="business_event_process_template">
+
+    <tr class="table-row" rel="<%%= index %>" id="bep_element_row_<%%=index%>">
+      <td class="table-cell tc-bep"><%%= entity.command %></td>
+      <td class="table-cell tc-bep"><%%= entity.status %></td>
+      <td class="table-cell tc-bep"><%%= entity.last_update %></td>
+      <td class="table-cell tc-bep"><%%= entity.error %></td>
+    </tr>
+
+</script>
+
+
+
+<script type="text/javascript">
+ 
+  function BusinessEventHook() {
+ 	   
+  	this.tmpl_bep = tmpl('business_event_process_template');
+  	
+    this.onRenderEntities = function(entities) {
+    
+      $('.new-entity-button').hide();
+      $('.edit-entity-button').hide();
+      	
+    }
+  	
+  	this.onRender = function(entity) {
+  		
+  	  if (entity.business_events_processes.length > 0) {	
+  		
+        var elementsContainer = document.getElementById('business_event_process_tbody');      
+
+        var elementHtml = '';
+            
+        for (var idx=0; idx<entity.business_events_processes.length; idx++) {      	
+          elementHtml += this.tmpl_bep( {'entity':entity.business_event_processes[idx],'index':idx, 'self':this});      	
+        }
+      
+        $(elementsContainer).html(elementHtml);
+  	  }
+  	            
+    }
+    
+    this.formatDateTime = function(date) {
+    
+      return new Date(date).toString('dd.MM.yyyy HH:mm:ss');
+    	
+    }
+    
+    this.formatStatus = function(entity) {
+    	
+      var status = [];	
+    	
+      for (var idx=0; idx<entity.business_events_processes.length; idx++) {
+        status.push(entity.business_events_processes[length].status);
+      }	
+      
+      if (status.length == 0) {
+        status = 'NOT_PROCESSED';	
+      }
+      
+      return status;
+    	
+    }
+  	
+  };
+  
+  var urls = {
+               query_url  : '/business-events'
+             };
+             
+  var businessEventHook = new BusinessEventHook();
+  var businessEvent = new EntityManagement(urls, 'business event', <%= settings.business_events_page_size %>, businessEventHook);
+ 
+  $('.entity-title').html('Business Events');
+  
+  
+</script>

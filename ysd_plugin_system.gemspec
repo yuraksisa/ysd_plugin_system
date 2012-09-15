@@ -8,7 +8,12 @@ Gem::Specification.new do |s|
   s.description = "System module integration"
   s.summary = "System module integration"
   
-  s.add_runtime_dependency "ysd_mw_system"
-  s.add_runtime_dependency "ysd_md_configuration"
+  s.add_runtime_dependency "ysd_plugin_auth"              # To access the current user 
+  s.add_runtime_dependency "ysd_plugin_entitymanagement"  # Entity management framework
+  s.add_runtime_dependency "ysd_plugin_site"              # Site builder
+  s.add_runtime_dependency "ysd_md_configuration" 
+  s.add_runtime_dependency "ysd_md_system"
+  s.add_runtime_dependency "ysd_md_logger"
+  s.add_runtime_dependency "ysd_md_business_events"  
   
 end

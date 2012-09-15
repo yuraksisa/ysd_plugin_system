@@ -6,7 +6,6 @@ Plugins::SinatraAppPlugin.register :system do
    author=      'yurak sisa'
    description= 'System integration'
    version=     '0.1'
-   sinatra_extension Sinatra::SystemExtension
    sinatra_extension Sinatra::YSD::System
    sinatra_extension Sinatra::YSD::BusinessEventManagement
    sinatra_extension Sinatra::YSD::BusinessEventRESTApi

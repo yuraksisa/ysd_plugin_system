@@ -1,7 +1,9 @@
-require 'sinatra/base'
-require 'sinatra/r18n'
+require 'sinatra/ysd_sinatra_system'
 
-# Include the plugin files
-require 'ysd_plugin_system_middleware'
+require 'sinatra/ysd_sinatra_business_events_management'
+require 'sinatra/ysd_sinatra_business_events_rest_api'
+require 'sinatra/ysd_sinatra_logger_management'
+require 'sinatra/ysd_sinatra_logger_rest_api'
+
 require 'ysd_plugin_system_extension'
 require 'ysd_plugin_system_init'

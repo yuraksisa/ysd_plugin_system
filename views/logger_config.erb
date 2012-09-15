@@ -1,0 +1,111 @@
+<%= include('entity-management') %>
+
+<!-- Renders the elements container -->
+<script type="text/tmpl" id="elements_container_template">
+
+</script>
+
+<!-- Renders one element in the elements list view -->
+        
+<script type="text/tmpl" id="elements_list_template">
+
+</script>
+
+<!-- Renders one element in the element view (full detailed) -->
+
+<script type="text/tmpl" id="element_template">
+
+</script>
+
+<!-- Renders the form to edit an element -->
+
+<script type="text/tmpl" id="element_template_form">
+
+     <form name="element" method="POST">
+        
+        <div class="top-navigation-bar navigation-bar">
+             <h2 class="form-title">Logging configuration</h2>
+             <div class="navigation-bar-nav-buttons">
+             </div>
+        </div>        
+
+        <div class="form-fields">
+        
+          <%% if (entity) { %>
+          <input type="hidden" id="key" value="<%%=entity.key%>"/>
+          <%% } %>
+                
+          <div class="formrow">
+            <label for="title" class="fieldtitle">Level</label>
+            <select name="logger_level" id="logger_level"/>
+            <div class="fielddescription">The severity of the logger : DEBUG, INFO, WARN, ERROR or FATAL. It determines which messages will be posted to the logger. ERROR or FATAL level is suitable in a production environment.</div>
+          </div>
+
+          <div class="formrow">
+            <label for="title" class="fieldtitle">Level</label>
+            <input type="text" maxlength="6" id="logger_max_size" name="logger_max_size" class="fieldcontrol" <%% if (entity) {%> value="<%%=entity.logger_max_size %>" <%% } %>/>
+            <div class="fielddescription">The logger capacity. The number of message it can store. This allows hold the db capacity under control.</div>
+          </div>
+
+          <div class="bottom-navigation-bar navigation-bar">
+            <div class="navigation-bar-nav-buttons">
+              <input type="submit" class="update-entity-button action-button entity-management-button" value="Update"/>
+            </div>
+          </div>
+        
+        </div>
+        
+      </form>
+
+</script>
+
+
+<script type="text/javascript">
+ 
+  function LoggerConfigHook() {
+ 	   
+  	this.onEdit = function(entity) {
+  	  this.configForm(entity);	
+  	}
+  	
+  	this.onNew = function() {
+  	  this.configForm(null);	
+  	}
+  	
+    this.onRenderEntities = function(entities) {
+    
+      $('.new-entity-button').hide();
+      $('.edit-entity-button').hide();
+      $('.page-navigation').hide();
+      	
+    }
+    
+    this.configForm = function(entity) {
+    
+       // Configure levels
+       var levels = [{id:'0', description:'debug'},
+                     {id:'1', description:'info'},
+                     {id:'2', description:'warn'},
+                     {id:'3', description:'error'},
+                     {id:'4', description:'fatal'}];
+       var levelsDataSource = new YsdForms.MemoryDataSource(levels);
+       var levelValue = (entity && entity.logger_level)?entity.logger_level:0;
+       var selectLevel = new YsdForms.SelectSelector('logger_level', levelsDataSource, levelValue);
+       
+    	
+    }
+  	  	
+  };
+  
+  var urls = {
+               get_url        : '/logger-configuration',
+               update_url     : '/logger-configuration'
+             };
+             
+  var loggerConfigHook = new LoggerConfigHook();
+  var loggerConfig = new EntityManagement(urls, 'logger config', 1, loggerConfigHook, {url_base: '/logger-config', action: 'edit', hold_form_after_action: true});
+ 
+  $('.entity-title').html('Logging configuration');
+  
+  
+</script>
