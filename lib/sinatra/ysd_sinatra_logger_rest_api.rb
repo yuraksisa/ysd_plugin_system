@@ -18,9 +18,7 @@ module Sinatra
             offset = (page-1) * limit
           
             data  = Model::LogRecord.all({:limit => limit, :offset => offset, :order=>[:id.desc]}) 
-                    #Model::LogMessage.all({:limit => limit, :offset => offset, :order=>[:id.desc]})
             total = Model::LogRecord.count
-                    #Model::LogMessage.count
             
             content_type :json
             {:data => data, :summary => {:total => total}}.to_json
@@ -35,7 +33,6 @@ module Sinatra
         app.delete "/log-messages" do
                 
           Model::LogRecord.destroy
-          #Model::LogMessage.destroy
           
           content_type :json
           true.to_json
@@ -51,7 +48,6 @@ module Sinatra
           log_message_request = JSON.parse(URI.unescape(request.body.read))
 
           if log_message = Model::LogRecord.get(log_message_request['id'])
-            #Model::LogMessage.get(log_message_request['id'])
             log_message.destroy
           end
           

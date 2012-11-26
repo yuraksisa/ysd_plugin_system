@@ -21,7 +21,7 @@ module Sinatra
         #
         # It holds the user and redefines the System::Request.connected_user method
         #
-        app.before do
+        app.before /^[^.]*$/ do
       
           if Model::System::Request.method_defined?(:connected_user)
             Model::System::Request.send(:remove_method, :connected_user)
