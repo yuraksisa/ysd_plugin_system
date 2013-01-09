@@ -1,11 +1,17 @@
 <%= include('entity-management') %>
 
+<!-- Renders the element description -->
+<script type="text/tmpl" id="elements_title">
+  <h2 class="entity-title">Log</h2>
+</script>
+
+<!-- Renders the element description -->
+<script type="text/tmpl" id="elements_description">
+ <p>Esta página muestra las trazas del sistema. Puede consultar si se han producido errores en los procesos.</p>
+</script>
+
 <!-- Renders the elements container -->
 <script type="text/tmpl" id="elements_container_template">
-
-  <div class="elements_definition">
-    <p>Esta página muestra las trazas del sistema. Puede consultar si se han producido errores en los procesos.</p>
-  </div>
 
   <table id="elements_table" class="table">
      <thead class="table-header">
@@ -48,15 +54,15 @@
 
 <script type="text/javascript">
  
+ require(['jquery', 'YSDEntityManagement'], function($, EntityManagement) {
+  
   function LoggerHook() {
- 	   
-  	
+     	
     this.onRenderEntities = function(entities) {
     
       $('.new-entity-button').hide();
       $('.edit-entity-button').hide();
       $('.delete-all-entities-button').show();
-
       	
     }
   	
@@ -82,8 +88,7 @@
              
   var loggerHook = new LoggerHook();
   var loggers = new EntityManagement(urls, 'logger', <%= settings.log_messages_page_size %>, loggerHook);
- 
-  $('.entity-title').html('Loggers');
-  
-  
+   
+});
+
 </script>
