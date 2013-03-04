@@ -1,6 +1,12 @@
+require 'uri' unless defined?URI
+require 'json' unless defined?JSON
 require 'ysd-md-business_events' unless defined?BusinessEvent
+
 module Sinatra
   module YSD
+    #
+    # Business events REST API
+    #
     module BusinessEventRESTApi
    
       def self.registered(app)
@@ -10,7 +16,8 @@ module Sinatra
         app.helpers do
           def prepare_business_event(business_event)
              bep = business_event.business_event_processes.map do |bep| 
-               {:command_name => bep.command_name, :status => bep.status, :last_update => bep.last_update, :error => bep.error} 
+               {:command_name => bep.command_name, :status => bep.status, 
+                :last_update => bep.last_update, :error => bep.error} 
              end                              
              business_event.attributes.merge({:business_events_processes => bep})       
           end
@@ -26,7 +33,8 @@ module Sinatra
             limit = settings.business_events_page_size
             offset = (page-1) * limit
           
-            data, total  = BusinessEvents::BusinessEvent.find_all({:limit => limit, :offset => offset})
+            data, total  = BusinessEvents::BusinessEvent.find_all(
+              {:limit => limit, :offset => offset})
             
             # Retrieve the processes information
             data = data.map do |be|

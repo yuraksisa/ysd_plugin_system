@@ -42,6 +42,12 @@
 <!-- Renders one element in the element view (full detailed) -->
 
 <script type="text/tmpl" id="element_template">
+     
+</script>
+
+<!-- Renders the form to edit an element -->
+
+<script type="text/tmpl" id="element_template_form">
 
      <div class="element_template" style="overflow:hidden">
        <div class="entity-field"><span class="entity-fieldlabel">Date</span> <span class="entity-fieldvalue"><%%= entity.date %></span> </div>
@@ -67,12 +73,6 @@
           </tbody>
        </table>
      </div>
-     
-</script>
-
-<!-- Renders the form to edit an element -->
-
-<script type="text/tmpl" id="element_template_form">
 
 </script>
 
@@ -106,7 +106,7 @@ require(['YSDEntityManagement', 'jquery', 'ysdtemplate'], function(EntityManagem
       	
     }
   	
-  	this.onRender = function(entity) {
+  	this.onEdit = function(entity) {
   		
   	  if (entity.business_events_processes.length > 0) {	
   		

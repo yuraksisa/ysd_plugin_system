@@ -9,7 +9,7 @@ module Sinatra
         # Forums management page
         #
         app.get "/business-events" do
-          load_page 'business_events'.to_sym
+          load_page :business_events
         end
                 
       end

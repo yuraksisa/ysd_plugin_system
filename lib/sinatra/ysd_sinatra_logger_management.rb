@@ -9,14 +9,14 @@ module Sinatra
         # Log messages page
         #
         app.get "/logger" do
-          load_page 'logger'.to_sym
+          load_page :logger
         end
           
         #
         # Log configuration page
         #  
         app.get "/logger-config" do
-          load_page 'logger_config'.to_sym
+          load_page :logger_config
         end  
                 
       end

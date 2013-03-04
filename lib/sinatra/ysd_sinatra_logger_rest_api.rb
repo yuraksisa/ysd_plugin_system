@@ -1,4 +1,8 @@
-require 'ysd_md_logger'
+require 'json' unless defined?JSON
+require 'uri' unless defined?URI
+require 'ysd_md_logger' unless defined Model::LogRecord
+require 'ysd_md_configuration' unless defined?SystemConfiguration::Variable
+
 module Sinatra
   module YSD
     module LoggerRESTApi
@@ -17,7 +21,8 @@ module Sinatra
             limit = settings.log_messages_page_size
             offset = (page-1) * limit
           
-            data  = Model::LogRecord.all({:limit => limit, :offset => offset, :order=>[:id.desc]}) 
+            data  = Model::LogRecord.all({:limit => limit, 
+              :offset => offset, :order=>[:id.desc]}) 
             total = Model::LogRecord.count
             
             content_type :json
@@ -63,8 +68,10 @@ module Sinatra
         
           logger_configuration = {}
         
-          logger_configuration.store(:logger_level, SystemConfiguration::Variable.get_value('logger_level', 1))
-          logger_configuration.store(:logger_max_size, SystemConfiguration::Variable.get_value('logger_max_size', 2000))
+          logger_configuration.store(:logger_level, 
+            SystemConfiguration::Variable.get_value('logger_level', 1))
+          logger_configuration.store(:logger_max_size, 
+            SystemConfiguration::Variable.get_value('logger_max_size', 2000))
           
           content_type :json
           logger_configuration.to_json 

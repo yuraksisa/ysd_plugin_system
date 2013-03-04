@@ -1,4 +1,5 @@
 require 'ysd-plugins_viewlistener' unless defined?Plugins::ViewListener
+require 'ysd_md_configuration' unless defined?SystemConfiguration::Variable
 
 #
 # Site Extension
@@ -15,10 +16,10 @@ module Huasi
     def install(context={})
             
         SystemConfiguration::Variable.first_or_create({:name => 'logger_level'}, 
-                                                      {:value => 3, :description => 'logger level', :module => :system}) 
+          {:value => 3, :description => 'logger level', :module => :system}) 
                                                       
         SystemConfiguration::Variable.first_or_create({:name => 'logger_max_size'}, 
-                                                      { :value => 2000, :description => 'logger max size (#records)', :module => :system})
+          { :value => 2000, :description => 'logger max size (#records)', :module => :system})
                                                              
     end
 
