@@ -1,6 +1,6 @@
 require 'json' unless defined?JSON
 require 'uri' unless defined?URI
-require 'ysd_md_logger' unless defined Model::LogRecord
+require 'ysd_md_logger' unless defined? Model::LogRecord
 require 'ysd_md_configuration' unless defined?SystemConfiguration::Variable
 
 module Sinatra
