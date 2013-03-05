@@ -81,9 +81,9 @@
 <script type="text/tmpl" id="business_event_process_template">
 
     <tr class="table-row" rel="<%%= index %>" id="bep_element_row_<%%=index%>">
-      <td class="table-cell tc-bep"><%%= entity.command %></td>
+      <td class="table-cell tc-bep"><%%= entity.command_name %></td>
       <td class="table-cell tc-bep"><%%= entity.status %></td>
-      <td class="table-cell tc-bep"><%%= entity.last_update %></td>
+      <td class="table-cell tc-bep"><%%= self.formatDateTime(entity.last_update) %></td>
       <td class="table-cell tc-bep"><%%= entity.error %></td>
     </tr>
 
