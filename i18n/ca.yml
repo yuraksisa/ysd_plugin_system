@@ -2,3 +2,5 @@ system_admin_menu:
   system_menu: Sistema
   logger: Traces
   business_event: Events de negoci
+business_events_management:
+  title: Events de negoci
