@@ -26,7 +26,7 @@ module Sinatra
         #
         # Retrieve business events (POST)
         #
-        ["/business-events","/business-events/page/:page"].each do |path|
+        ["/api/business-events","/api/business-events/page/:page"].each do |path|
           app.post path do
 
             page = params[:page].to_i || 1
@@ -51,7 +51,7 @@ module Sinatra
         #
         # Deletes a log message (DELETE)
         #
-        app.delete "/business-event" do
+        app.delete "/api/business-event" do
         
           request.body.rewind
           business_event_request = JSON.parse(URI.unescape(request.body.read))

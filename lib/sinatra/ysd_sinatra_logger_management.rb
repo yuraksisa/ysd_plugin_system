@@ -8,14 +8,14 @@ module Sinatra
         #
         # Log messages page
         #
-        app.get "/logger" do
+        app.get "/admin/logger" do
           load_page :logger
         end
           
         #
         # Log configuration page
         #  
-        app.get "/logger-config" do
+        app.get "/admin/logger-config" do
           load_page :logger_config
         end  
                 

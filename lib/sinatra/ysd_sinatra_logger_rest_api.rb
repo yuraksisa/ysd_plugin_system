@@ -14,7 +14,7 @@ module Sinatra
         #
         # Retrieve log messages (POST)
         #
-        ["/log-messages","/log-messages/page/:page"].each do |path|
+        ["/api/log-messages","/api/log-messages/page/:page"].each do |path|
           app.post path do
 
             page = params[:page].to_i || 1
@@ -35,7 +35,7 @@ module Sinatra
         #
         # Deletes all log messages (DELETE)
         #
-        app.delete "/log-messages" do
+        app.delete "/api/log-messages" do
                 
           Model::LogRecord.destroy
           
@@ -47,7 +47,7 @@ module Sinatra
         #
         # Deletes a log message (DELETE)
         #
-        app.delete "/log-message" do
+        app.delete "/api/log-message" do
 
           request.body.rewind
           log_message_request = JSON.parse(URI.unescape(request.body.read))
@@ -64,7 +64,7 @@ module Sinatra
         #
         # Gets the logger configuration (GET)
         #
-        app.get "/logger-configuration" do
+        app.get "/api/logger-configuration" do
         
           logger_configuration = {}
         
@@ -81,7 +81,7 @@ module Sinatra
         #
         # Updates the log configuration (PUT)
         #
-        app.put "/logger-configuration" do
+        app.put "/api/logger-configuration" do
       
           request.body.rewind
           logger_config_request = JSON.parse(URI.unescape(request.body.read))      
