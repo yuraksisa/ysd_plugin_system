@@ -152,7 +152,7 @@ require(['YSDEntityManagement', 'jquery', 'ysdtemplate'], function(EntityManagem
              };
              
   var businessEventHook = new BusinessEventHook();
-  var businessEvent = new EntityManagement(urls, 'business event', <%= settings.business_events_page_size %>, businessEventHook);
+  var businessEvent = new EntityManagement(urls, 'business event', <%= settings.business_events_page_size %>, businessEventHook, {prefix:'/admin'});
   
 });  
 

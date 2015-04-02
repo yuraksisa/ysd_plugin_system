@@ -89,7 +89,7 @@
              };
              
   var loggerHook = new LoggerHook();
-  var loggers = new EntityManagement(urls, 'logger', <%= settings.log_messages_page_size %>, loggerHook);
+  var loggers = new EntityManagement(urls, 'logger', <%= settings.log_messages_page_size %>, loggerHook, {prefix:'/admin'});
    
 });
 
