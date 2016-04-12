@@ -70,9 +70,17 @@ module Huasi
     #
     def routes(context={})
     
-      routes = [{:path => '/logger',
+      routes = [{:path => '/admin/system',
+                 :parent_path => '/admin',
+                 :regular_expression => /^\/admin\/system/, 
+                 :title => 'Sistema', 
+                 :description => 'Reads the log messages',
+                 :fit => 1,
+                 :module => :system },
+                {:path => '/admin/logger',
+                 :parent_path => '/admin/system',
                  :regular_expression => /^\/admin\/logger/, 
-                 :title => 'Logger', 
+                 :title => 'Trazas', 
                  :description => 'Reads the log messages',
                  :fit => 1,
                  :module => :system },
